@@ -184,19 +184,289 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
-        .skill-bar {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            height: 8px;
+        .skills-section {
+            position: relative;
             overflow: hidden;
-            margin-top: 10px;
+            background:
+                radial-gradient(circle at 14% 20%, rgba(245, 158, 11, 0.12), transparent 28%),
+                radial-gradient(circle at 86% 18%, rgba(99, 102, 241, 0.18), transparent 30%),
+                radial-gradient(circle at 50% 92%, rgba(16, 185, 129, 0.1), transparent 34%);
         }
 
-        .skill-progress {
+        body.light-mode .skills-section {
+            background:
+                radial-gradient(circle at 14% 20%, rgba(245, 158, 11, 0.1), transparent 28%),
+                radial-gradient(circle at 86% 18%, rgba(99, 102, 241, 0.09), transparent 30%),
+                radial-gradient(circle at 50% 92%, rgba(16, 185, 129, 0.08), transparent 34%);
+        }
+
+        .skills-kicker {
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .skills-toolbar,
+        .skill-stat,
+        .skill-category-card {
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(16px);
+            box-shadow: 0 18px 48px rgba(0, 0, 0, 0.16);
+        }
+
+        body.light-mode .skills-toolbar,
+        body.light-mode .skill-stat,
+        body.light-mode .skill-category-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.78));
+            border-color: rgba(99, 102, 241, 0.13);
+            box-shadow: 0 18px 46px rgba(15, 23, 42, 0.1);
+        }
+
+        .skills-toolbar {
+            border-radius: 18px;
+            padding: 14px;
+        }
+
+        .skill-toggle-btn,
+        .skill-filter-btn {
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 999px;
+            color: var(--dark-text);
+            background: rgba(255, 255, 255, 0.08);
+            padding: 9px 16px;
+            font-weight: 700;
+            transition: all 0.35s ease;
+        }
+
+        body.light-mode .skill-toggle-btn,
+        body.light-mode .skill-filter-btn {
+            color: var(--light-text);
+            background: rgba(255, 255, 255, 0.78);
+            border-color: rgba(99, 102, 241, 0.14);
+        }
+
+        .skill-toggle-btn.active,
+        .skill-filter-btn.active,
+        .skill-toggle-btn:hover,
+        .skill-filter-btn:hover {
+            color: #ffffff;
+            border-color: transparent;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.34);
+            transform: translateY(-2px);
+        }
+
+        .skill-stat {
+            border-radius: 16px;
+            padding: 20px;
             height: 100%;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .skill-stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        #skillsGrid {
+            transition: opacity 0.28s ease, transform 0.28s ease;
+        }
+
+        .skill-category-card {
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            border-radius: 18px;
+            padding: 24px;
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .skill-category-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-category-card:hover {
+            border-color: rgba(245, 158, 11, 0.55);
+            box-shadow: 0 26px 72px rgba(99, 102, 241, 0.24);
+            transform: translateY(-8px);
+        }
+
+        .skill-category-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.13), transparent 42%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        .skill-category-card:hover::before {
+            opacity: 1;
+        }
+
+        .skill-category-icon {
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            color: #ffffff;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 14px 30px rgba(99, 102, 241, 0.28);
+        }
+
+        .skill-circle-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .skill-circle {
+            display: grid;
+            place-items: center;
+            gap: 8px;
+            text-align: center;
+        }
+
+        .skill-ring {
+            --value: 0deg;
+            position: relative;
+            width: 96px;
+            height: 96px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary-color) var(--value), rgba(255, 255, 255, 0.13) 0);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 24px rgba(99, 102, 241, 0.2);
+        }
+
+        .skill-ring::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border-radius: inherit;
+            background: var(--dark-bg);
+        }
+
+        body.light-mode .skill-ring::before {
+            background: #ffffff;
+        }
+
+        .skill-ring-content {
+            position: relative;
+            z-index: 1;
+            font-weight: 800;
+        }
+
+        .skill-row {
+            margin-bottom: 18px;
+        }
+
+        .skill-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-icon {
+            width: 34px;
+            height: 34px;
+            display: inline-grid;
+            place-items: center;
+            color: #ffffff;
             border-radius: 10px;
-            transition: width 1s ease-in-out;
+            background: rgba(99, 102, 241, 0.9);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.22);
+        }
+
+        .skill-meter {
+            height: 10px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        body.light-mode .skill-meter {
+            background: rgba(15, 23, 42, 0.08);
+        }
+
+        .skill-meter-fill {
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            background-size: 200% 100%;
+            box-shadow: 0 0 18px rgba(99, 102, 241, 0.45);
+            transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            animation: skillGradient 2.8s ease-in-out infinite;
+        }
+
+        .skill-tag-cloud {
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skills-section.tag-view .skill-progress-view {
+            display: none;
+        }
+
+        .skills-section.tag-view .skill-tag-cloud {
+            display: flex;
+        }
+
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 999px;
+            padding: 9px 13px;
+            background: rgba(99, 102, 241, 0.13);
+            font-weight: 700;
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-3px);
+            border-color: rgba(245, 158, 11, 0.55);
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.2);
+        }
+
+        .top-skill {
+            position: relative;
+        }
+
+        .top-skill::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: inherit;
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            animation: skillPulse 2.2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes skillGradient {
+            50% {
+                background-position: 100% 0;
+            }
+        }
+
+        @keyframes skillPulse {
+            0%, 100% {
+                opacity: 0.35;
+                transform: scale(0.98);
+            }
+            50% {
+                opacity: 0.95;
+                transform: scale(1.04);
+            }
         }
 
         .project-filter {
@@ -204,18 +474,249 @@
         }
 
         .filter-btn {
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            margin: 0 5px;
-            border-radius: 25px;
-            padding: 8px 20px;
-            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: var(--dark-text);
+            margin: 6px;
+            border-radius: 999px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.35s ease;
         }
 
         .filter-btn.active, .filter-btn:hover {
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
+            border-color: transparent;
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.34);
+            transform: translateY(-2px);
+        }
+
+        body.light-mode .filter-btn {
+            color: var(--light-text);
+            background: rgba(255, 255, 255, 0.76);
+            border-color: rgba(99, 102, 241, 0.14);
+        }
+
+        .projects-section {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 88% 8%, rgba(139, 92, 246, 0.18), transparent 28%),
+                radial-gradient(circle at 12% 76%, rgba(16, 185, 129, 0.12), transparent 30%);
+        }
+
+        body.light-mode .projects-section {
+            background:
+                radial-gradient(circle at 88% 8%, rgba(139, 92, 246, 0.1), transparent 28%),
+                radial-gradient(circle at 12% 76%, rgba(16, 185, 129, 0.09), transparent 30%);
+        }
+
+        .projects-kicker {
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .featured-project {
+            position: relative;
+            overflow: hidden;
+            min-height: 260px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 18px;
+            background:
+                linear-gradient(135deg, rgba(99, 102, 241, 0.28), rgba(15, 23, 42, 0.76)),
+                url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80') center/cover;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+        }
+
+        .featured-project::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.34));
+        }
+
+        .featured-project > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-card-wrap {
+            transition: opacity 0.32s ease, transform 0.32s ease;
+        }
+
+        .projects-grid.is-filtering .project-card-wrap {
+            opacity: 0;
+            transform: scale(0.96);
+        }
+
+        .project-card {
+            position: relative;
+            min-height: 100%;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 18px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(16px);
+            box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+            transform-style: preserve-3d;
+            transition: transform 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
+        }
+
+        body.light-mode .project-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.78));
+            border-color: rgba(99, 102, 241, 0.13);
+            box-shadow: 0 18px 46px rgba(15, 23, 42, 0.12);
+        }
+
+        .project-card:hover,
+        .project-card:focus-within {
+            transform: translateY(-8px);
+            border-color: rgba(245, 158, 11, 0.55);
+            box-shadow: 0 26px 72px rgba(99, 102, 241, 0.25);
+        }
+
+        .project-media {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 16 / 10;
+            background: rgba(15, 23, 42, 0.35);
+        }
+
+        .project-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.7s ease;
+        }
+
+        .project-card:hover .project-media img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px;
+            opacity: 0;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.28), rgba(99, 102, 241, 0.8));
+            backdrop-filter: blur(6px);
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card:hover .project-overlay,
+        .project-card:focus-within .project-overlay {
+            opacity: 1;
+        }
+
+        .project-body {
+            padding: 24px;
+        }
+
+        .project-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 2;
+            padding: 7px 12px;
+            border-radius: 999px;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--accent-color), #ef4444);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 24px rgba(245, 158, 11, 0.32);
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-tech .badge {
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: var(--dark-text);
+            background: rgba(99, 102, 241, 0.16);
+            font-weight: 600;
+        }
+
+        body.light-mode .project-tech .badge {
+            color: var(--light-text);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .project-link {
+            border-radius: 999px;
+            padding: 9px 14px;
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .project-empty {
+            border: 1px dashed rgba(255, 255, 255, 0.22);
+            border-radius: 18px;
+            padding: 44px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .project-skeleton {
+            min-height: 360px;
+            overflow: hidden;
+            border-radius: 18px;
+            background: linear-gradient(110deg, rgba(255, 255, 255, 0.06) 8%, rgba(255, 255, 255, 0.16) 18%, rgba(255, 255, 255, 0.06) 33%);
+            background-size: 200% 100%;
+            animation: skeletonShimmer 1.2s linear infinite;
+        }
+
+        .project-modal .modal-content {
+            color: var(--dark-text);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 18px;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.97), rgba(30, 41, 59, 0.97));
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.38);
+        }
+
+        body.light-mode .project-modal .modal-content {
+            color: var(--light-text);
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+        }
+
+        body.light-mode .project-modal .btn-close {
+            filter: none;
+        }
+
+        .project-modal-image {
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 14px;
+        }
+
+        @keyframes skeletonShimmer {
+            to {
+                background-position-x: -200%;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .project-card-wrap:nth-child(3n + 2) {
+                margin-top: 28px;
+            }
+            .project-card-wrap:nth-child(3n) {
+                margin-top: 56px;
+            }
         }
 
         .contact-form {
@@ -532,6 +1033,16 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
+            .skill-category-card,
+            .skill-meter-fill,
+            .skill-ring,
+            .skill-tag,
+            .top-skill::after,
+            .project-card,
+            .project-media img,
+            .project-overlay,
+            .project-skeleton,
+            .project-card-wrap,
             .timeline-item,
             .timeline-card,
             .timeline-progress,
@@ -682,115 +1193,96 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="section">
+    <section id="skills" class="section skills-section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Skills</h2>
-            <div class="row">
-                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <h4>Frontend</h4>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span>React</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 90%"></div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span>Vue.js</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span>HTML/CSS</span>
-                            <span>95%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 95%"></div>
-                        </div>
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="skills-kicker">Technical Stack</span>
+                <h2 class="section-title mb-4">Skills</h2>
+                <p class="lead mx-auto" style="max-width: 720px;">
+                    A practical mix of frontend, backend, mobile, and tooling skills presented with proficiency and focus areas.
+                </p>
+            </div>
+
+            <div class="row g-3 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-md-4">
+                    <div class="skill-stat">
+                        <div class="skill-stat-value"><span class="skill-counter" data-target="18">0</span>+</div>
+                        <div class="text-muted">Technologies</div>
                     </div>
                 </div>
-                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                    <h4>Backend</h4>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span>Node.js</span>
-                            <span>88%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 88%"></div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span>Python</span>
-                            <span>82%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 82%"></div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span>PostgreSQL</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%"></div>
-                        </div>
+                <div class="col-md-4">
+                    <div class="skill-stat">
+                        <div class="skill-stat-value"><span class="skill-counter" data-target="4">0</span></div>
+                        <div class="text-muted">Core Categories</div>
                     </div>
                 </div>
-                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                    <h4>Tools & Others</h4>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span>Git</span>
-                            <span>92%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 92%"></div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span>Docker</span>
-                            <span>75%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 75%"></div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span>AWS</span>
-                            <span>70%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 70%"></div>
-                        </div>
+                <div class="col-md-4">
+                    <div class="skill-stat">
+                        <div class="skill-stat-value"><span class="skill-counter" data-target="5">0</span>+</div>
+                        <div class="text-muted">Years Practice</div>
                     </div>
                 </div>
+            </div>
+
+            <div class="skills-toolbar d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4" data-aos="fade-up" data-aos-delay="160">
+                <div class="d-flex flex-wrap gap-2" role="group" aria-label="Skill display mode">
+                    <button class="skill-toggle-btn active" type="button" data-skill-view="progress">
+                        <i class="fas fa-chart-line me-1"></i>Progress View
+                    </button>
+                    <button class="skill-toggle-btn" type="button" data-skill-view="tags">
+                        <i class="fas fa-tags me-1"></i>Tag View
+                    </button>
+                </div>
+                <div class="d-flex flex-wrap gap-2" role="group" aria-label="Skill category filters">
+                    <button class="skill-filter-btn active" type="button" data-skill-filter="all">All</button>
+                    <button class="skill-filter-btn" type="button" data-skill-filter="frontend">Frontend</button>
+                    <button class="skill-filter-btn" type="button" data-skill-filter="backend">Backend</button>
+                    <button class="skill-filter-btn" type="button" data-skill-filter="mobile">Mobile</button>
+                    <button class="skill-filter-btn" type="button" data-skill-filter="tools">Tools</button>
+                </div>
+            </div>
+
+            <div class="row g-4" id="skillsGrid">
+                <!-- Skills are populated by JavaScript -->
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="section">
+    <section id="projects" class="section projects-section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Projects</h2>
-            <div class="project-filter text-center" data-aos="fade-up" data-aos-delay="200">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="web">Web</button>
-                <button class="filter-btn" data-filter="mobile">Mobile</button>
-                <button class="filter-btn" data-filter="backend">Backend</button>
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="projects-kicker">Selected Work</span>
+                <h2 class="section-title mb-4">Projects</h2>
+                <p class="lead mx-auto" style="max-width: 720px;">
+                    Practical products and polished interfaces built with modern frontend, backend, and mobile tools.
+                </p>
             </div>
-            <div class="row" id="projectsGrid">
+
+            <div class="featured-project d-flex align-items-end p-4 p-lg-5 mb-5" data-aos="zoom-in">
+                <div class="row align-items-end w-100 g-4">
+                    <div class="col-lg-8">
+                        <span class="project-badge position-static d-inline-flex mb-3">Featured</span>
+                        <h3 class="h2 fw-bold mb-3">Full-stack systems with product-level detail</h3>
+                        <p class="lead mb-0">
+                            Each project below is presented like a real case study: stack, outcomes, features, and direct action links.
+                        </p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <button class="btn btn-custom" type="button" onclick="openProjectModal(1)">
+                            <i class="fas fa-star me-2"></i>View Featured
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-filter text-center" data-aos="fade-up" data-aos-delay="100" role="group" aria-label="Project filters">
+                <button class="filter-btn active" type="button" data-filter="all">All</button>
+                <button class="filter-btn" type="button" data-filter="web">Web</button>
+                <button class="filter-btn" type="button" data-filter="mobile">Mobile</button>
+                <button class="filter-btn" type="button" data-filter="backend">Backend</button>
+            </div>
+            <div class="row g-4 projects-grid" id="projectsGrid" aria-live="polite">
                 <!-- Projects will be populated by JavaScript -->
             </div>
         </div>
@@ -976,12 +1468,12 @@
     </section>
 
     <!-- Project Modal -->
-    <div class="modal fade" id="projectModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade project-modal" id="projectModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header border-0">
                     <h5 class="modal-title" id="projectModalTitle"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="projectModalBody">
                     <!-- Modal content will be populated by JavaScript -->
@@ -1064,6 +1556,10 @@
         // Smooth Scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    return;
+                }
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
@@ -1099,67 +1595,174 @@
 
         window.addEventListener('scroll', updateActiveNav);
 
-        // Projects Data
+        // Projects data and premium grid rendering
+        function createProjectImage(title, subtitle, colors) {
+            const [start, end, accent] = colors;
+            const svg = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560">
+                    <defs>
+                        <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+                            <stop offset="0%" stop-color="${start}"/>
+                            <stop offset="100%" stop-color="${end}"/>
+                        </linearGradient>
+                        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#020617" flood-opacity="0.28"/>
+                        </filter>
+                    </defs>
+                    <rect width="900" height="560" rx="34" fill="url(#bg)"/>
+                    <circle cx="760" cy="72" r="124" fill="${accent}" opacity="0.22"/>
+                    <circle cx="88" cy="482" r="150" fill="#ffffff" opacity="0.1"/>
+                    <rect x="96" y="92" width="708" height="376" rx="26" fill="#0f172a" opacity="0.72" filter="url(#shadow)"/>
+                    <rect x="132" y="134" width="250" height="20" rx="10" fill="#ffffff" opacity="0.42"/>
+                    <rect x="132" y="182" width="636" height="156" rx="22" fill="#ffffff" opacity="0.1"/>
+                    <rect x="164" y="220" width="156" height="80" rx="18" fill="${accent}" opacity="0.92"/>
+                    <rect x="344" y="220" width="156" height="80" rx="18" fill="#ffffff" opacity="0.18"/>
+                    <rect x="524" y="220" width="156" height="80" rx="18" fill="#ffffff" opacity="0.14"/>
+                    <rect x="132" y="372" width="180" height="22" rx="11" fill="#ffffff" opacity="0.5"/>
+                    <rect x="336" y="372" width="132" height="22" rx="11" fill="#ffffff" opacity="0.24"/>
+                    <text x="132" y="440" fill="#ffffff" font-family="Poppins, Arial, sans-serif" font-size="38" font-weight="700">${title}</text>
+                    <text x="132" y="486" fill="#e2e8f0" font-family="Poppins, Arial, sans-serif" font-size="22" font-weight="500">${subtitle}</text>
+                </svg>
+            `;
+            return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+        }
+
         const projects = [
             {
                 id: 1,
-                title: 'E-Commerce Platform',
+                title: 'CommerceOS',
                 category: 'web',
-                description: 'A full-featured e-commerce platform built with React and Node.js.',
+                badge: 'Top',
+                description: 'A conversion-focused storefront with payments, inventory, and admin analytics.',
+                fullDescription: 'CommerceOS is a complete e-commerce experience designed around fast browsing, secure checkout, and a clean dashboard for product, order, and inventory management.',
+                features: ['Product catalog with smart filtering', 'Stripe-ready checkout flow', 'Admin analytics and order tracking', 'Responsive shopping experience'],
                 tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-                image: 'https://via.placeholder.com/400x250/6366f1/ffffff?text=E-Commerce',
-                github: '#',
-                demo: '#'
+                image: createProjectImage('CommerceOS', 'React + Node storefront', ['#6366f1', '#111827', '#f59e0b']),
+                gallery: [
+                    createProjectImage('Storefront', 'Premium shopping UI', ['#6366f1', '#0f172a', '#f59e0b']),
+                    createProjectImage('Dashboard', 'Orders and inventory', ['#8b5cf6', '#1e293b', '#10b981'])
+                ],
+                github: 'https://github.com/',
+                demo: 'https://example.com/'
             },
             {
                 id: 2,
-                title: 'Task Management App',
+                title: 'FlowBoard',
                 category: 'web',
-                description: 'A collaborative task management application with real-time updates.',
+                badge: 'New',
+                description: 'A collaborative task board with realtime updates, teams, and work tracking.',
+                fullDescription: 'FlowBoard helps teams plan and ship work with realtime task movement, status visibility, comments, and lightweight reporting.',
+                features: ['Realtime kanban updates', 'Team spaces and comments', 'Progress summaries', 'Role-aware project access'],
                 tech: ['Vue.js', 'Express', 'PostgreSQL', 'Socket.io'],
-                image: 'https://via.placeholder.com/400x250/8b5cf6/ffffff?text=Task+App',
-                github: '#',
-                demo: '#'
+                image: createProjectImage('FlowBoard', 'Realtime collaboration', ['#8b5cf6', '#172554', '#22c55e']),
+                gallery: [
+                    createProjectImage('Boards', 'Drag and drop workflow', ['#8b5cf6', '#172554', '#22c55e']),
+                    createProjectImage('Teams', 'Realtime project room', ['#3b82f6', '#0f172a', '#f59e0b'])
+                ],
+                github: 'https://github.com/',
+                demo: 'https://example.com/'
             },
             {
                 id: 3,
-                title: 'Mobile Fitness Tracker',
+                title: 'PulseFit',
                 category: 'mobile',
-                description: 'A React Native app for tracking workouts and fitness goals.',
+                badge: 'Popular',
+                description: 'A mobile fitness companion for workouts, habits, goals, and progress charts.',
+                fullDescription: 'PulseFit turns workout tracking into a clean mobile habit loop with guided sessions, history, goal progress, and Firebase-backed sync.',
+                features: ['Workout and habit tracking', 'Goal progress charts', 'Cloud sync and auth', 'Mobile-first interaction patterns'],
                 tech: ['React Native', 'Firebase', 'Redux'],
-                image: 'https://via.placeholder.com/400x250/f59e0b/ffffff?text=Fitness+App',
-                github: '#',
-                demo: '#'
+                image: createProjectImage('PulseFit', 'Mobile fitness tracker', ['#f59e0b', '#7c2d12', '#22c55e']),
+                gallery: [
+                    createProjectImage('Workout', 'Session tracking', ['#f59e0b', '#7c2d12', '#22c55e']),
+                    createProjectImage('Progress', 'Charts and goals', ['#ec4899', '#581c87', '#facc15'])
+                ],
+                github: 'https://github.com/',
+                demo: 'https://example.com/'
             },
             {
                 id: 4,
-                title: 'API Gateway Service',
+                title: 'GatewayX',
                 category: 'backend',
-                description: 'A scalable API gateway built with microservices architecture.',
+                badge: 'Backend',
+                description: 'A scalable API gateway for routing, caching, rate limits, and service health.',
+                fullDescription: 'GatewayX provides a production-minded entry point for microservices with request routing, Redis caching, rate limiting, and containerized deployment support.',
+                features: ['Service routing and health checks', 'Redis caching layer', 'Rate limit protection', 'Docker and Kubernetes deployment'],
                 tech: ['Node.js', 'Docker', 'Kubernetes', 'Redis'],
-                image: 'https://via.placeholder.com/400x250/10b981/ffffff?text=API+Gateway',
-                github: '#',
-                demo: '#'
+                image: createProjectImage('GatewayX', 'Microservice gateway', ['#10b981', '#064e3b', '#60a5fa']),
+                gallery: [
+                    createProjectImage('Gateway', 'Routing and caching', ['#10b981', '#064e3b', '#60a5fa']),
+                    createProjectImage('Services', 'Container deployment', ['#0ea5e9', '#164e63', '#a78bfa'])
+                ],
+                github: 'https://github.com/',
+                demo: 'https://example.com/'
             },
             {
                 id: 5,
-                title: 'Portfolio Website',
+                title: 'Portfolio Pro',
                 category: 'web',
-                description: 'A responsive portfolio website showcasing projects and skills.',
+                badge: 'Featured',
+                description: 'A responsive portfolio system with theme toggle, animation, and case studies.',
+                fullDescription: 'Portfolio Pro is a polished personal site structure built to present skills, projects, experience, and contact flows with strong visual hierarchy.',
+                features: ['Animated sections and smooth scrolling', 'Dark and light mode', 'Responsive Bootstrap layout', 'Project modal case studies'],
                 tech: ['HTML', 'CSS', 'JavaScript', 'Bootstrap'],
-                image: 'https://via.placeholder.com/400x250/ec4899/ffffff?text=Portfolio',
-                github: '#',
-                demo: '#'
+                image: createProjectImage('Portfolio Pro', 'Animated developer profile', ['#ec4899', '#4c1d95', '#f59e0b']),
+                gallery: [
+                    createProjectImage('Hero', 'Professional landing view', ['#ec4899', '#4c1d95', '#f59e0b']),
+                    createProjectImage('Case Study', 'Project presentation', ['#6366f1', '#0f172a', '#22c55e'])
+                ],
+                github: 'https://github.com/',
+                demo: 'https://example.com/'
             },
             {
                 id: 6,
-                title: 'Weather Dashboard',
+                title: 'WeatherLens',
                 category: 'web',
-                description: 'A weather dashboard with location-based forecasts and charts.',
+                badge: 'Live',
+                description: 'A weather intelligence dashboard with forecasts, charts, and saved locations.',
+                fullDescription: 'WeatherLens combines forecast APIs with data visualization to make current conditions and weather trends easy to scan.',
+                features: ['Location-based forecasts', 'Interactive D3 charts', 'Saved city comparison', 'Responsive weather cards'],
                 tech: ['React', 'D3.js', 'OpenWeather API'],
-                image: 'https://via.placeholder.com/400x250/3b82f6/ffffff?text=Weather+App',
-                github: '#',
-                demo: '#'
+                image: createProjectImage('WeatherLens', 'Forecast dashboard', ['#3b82f6', '#0c4a6e', '#facc15']),
+                gallery: [
+                    createProjectImage('Forecast', 'City weather cards', ['#3b82f6', '#0c4a6e', '#facc15']),
+                    createProjectImage('Trends', 'D3 weather charts', ['#06b6d4', '#164e63', '#f97316'])
+                ],
+                github: 'https://github.com/',
+                demo: 'https://example.com/'
+            },
+            {
+                id: 7,
+                title: 'Clinic API',
+                category: 'backend',
+                badge: 'Secure',
+                description: 'A healthcare scheduling API with auth, appointments, and audit-friendly data.',
+                fullDescription: 'Clinic API focuses on secure backend patterns for appointments, user roles, patient records, and operational scheduling.',
+                features: ['JWT authentication', 'Appointment scheduling', 'Role-based access control', 'Clean REST API contracts'],
+                tech: ['Django', 'DRF', 'PostgreSQL', 'JWT'],
+                image: createProjectImage('Clinic API', 'Secure appointment backend', ['#14b8a6', '#134e4a', '#f97316']),
+                gallery: [
+                    createProjectImage('Appointments', 'Scheduling endpoints', ['#14b8a6', '#134e4a', '#f97316']),
+                    createProjectImage('Access', 'Roles and permissions', ['#64748b', '#111827', '#22c55e'])
+                ],
+                github: 'https://github.com/',
+                demo: 'https://example.com/'
+            },
+            {
+                id: 8,
+                title: 'RideMate',
+                category: 'mobile',
+                badge: 'Mobile',
+                description: 'A ride booking prototype with live trip states and clean mobile screens.',
+                fullDescription: 'RideMate demonstrates a polished mobile booking flow, from destination search to trip confirmation and driver status updates.',
+                features: ['Destination search flow', 'Trip status screens', 'Driver and rider views', 'Mobile UI component system'],
+                tech: ['Flutter', 'Firebase', 'Maps API'],
+                image: createProjectImage('RideMate', 'Flutter ride booking', ['#0ea5e9', '#082f49', '#a78bfa']),
+                gallery: [
+                    createProjectImage('Booking', 'Trip request flow', ['#0ea5e9', '#082f49', '#a78bfa']),
+                    createProjectImage('Live Trip', 'Status and maps', ['#2563eb', '#172554', '#22c55e'])
+                ],
+                github: 'https://github.com/',
+                demo: 'https://example.com/'
             }
         ];
 
@@ -1170,36 +1773,71 @@
 
             const filteredProjects = filter === 'all' ? projects : projects.filter(project => project.category === filter);
 
-            filteredProjects.forEach(project => {
+            if (!filteredProjects.length) {
+                projectsGrid.innerHTML = '<div class="col-12"><div class="project-empty">No projects found for this category.</div></div>';
+                return;
+            }
+
+            filteredProjects.forEach((project, index) => {
                 const projectCard = `
-                    <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                        <div class="card h-100">
-                            <img src="${project.image}" class="card-img-top" alt="${project.title}">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">${project.title}</h5>
-                                <p class="card-text flex-grow-1">${project.description}</p>
-                                <div class="mb-3">
-                                    ${project.tech.map(tech => `<span class="badge bg-primary me-1">${tech}</span>`).join('')}
-                                </div>
-                                <div class="mt-auto">
-                                    <button class="btn btn-outline-primary me-2" onclick="openProjectModal(${project.id})">View Details</button>
-                                    <a href="${project.github}" class="btn btn-outline-secondary me-2" target="_blank">GitHub</a>
-                                    <a href="${project.demo}" class="btn btn-custom" target="_blank">Live Demo</a>
+                    <div class="col-lg-4 col-md-6 project-card-wrap" data-aos="zoom-in" data-aos-delay="${index * 90}">
+                        <article class="project-card h-100" tabindex="0">
+                            <div class="project-media">
+                                <span class="project-badge">${project.badge}</span>
+                                <img src="${project.image}" class="card-img-top" alt="${project.title} project preview" loading="lazy">
+                                <div class="project-overlay">
+                                    <button class="btn btn-light project-link" type="button" onclick="event.stopPropagation(); openProjectModal(${project.id})">
+                                        <i class="fas fa-expand-alt me-1"></i>Details
+                                    </button>
+                                    <a href="${project.demo}" class="btn btn-custom project-link" target="_blank" onclick="event.stopPropagation();">
+                                        <i class="fas fa-arrow-up-right-from-square me-1"></i>Live Demo
+                                    </a>
                                 </div>
                             </div>
-                        </div>
+                            <div class="project-body d-flex flex-column">
+                                <div class="d-flex justify-content-between align-items-start gap-3 mb-2">
+                                    <h5 class="card-title mb-0">${project.title}</h5>
+                                    <button class="btn btn-sm btn-outline-primary rounded-circle flex-shrink-0" type="button" aria-label="Open ${project.title} details" onclick="openProjectModal(${project.id})">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
+                                <p class="card-text flex-grow-1 mb-3">${project.description}</p>
+                                <div class="project-tech mb-4">
+                                    ${project.tech.map(tech => `<span class="badge">${tech}</span>`).join('')}
+                                </div>
+                                <div class="d-flex flex-wrap gap-2 mt-auto">
+                                    <a href="${project.demo}" class="btn btn-custom project-link" target="_blank">
+                                        <i class="fas fa-play me-1"></i>Live Demo
+                                    </a>
+                                    <a href="${project.github}" class="btn btn-outline-secondary project-link" target="_blank">
+                                        <i class="fab fa-github me-1"></i>GitHub
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
                     </div>
                 `;
                 projectsGrid.innerHTML += projectCard;
             });
+
+            AOS.refreshHard();
+            attachProjectTilt();
         }
+
+        let activeProjectFilter = 'all';
 
         // Project Filtering
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                renderProjects(btn.dataset.filter);
+                activeProjectFilter = btn.dataset.filter;
+                const projectsGrid = document.getElementById('projectsGrid');
+                projectsGrid.classList.add('is-filtering');
+                setTimeout(() => {
+                    renderProjects(activeProjectFilter);
+                    projectsGrid.classList.remove('is-filtering');
+                }, 220);
             });
         });
 
@@ -1210,20 +1848,78 @@
 
             document.getElementById('projectModalTitle').textContent = project.title;
             document.getElementById('projectModalBody').innerHTML = `
-                <img src="${project.image}" class="img-fluid mb-3" alt="${project.title}">
-                <p>${project.description}</p>
-                <h6>Technologies Used:</h6>
-                <div class="mb-3">
-                    ${project.tech.map(tech => `<span class="badge bg-primary me-2">${tech}</span>`).join('')}
-                </div>
-                <div>
-                    <a href="${project.github}" class="btn btn-outline-secondary me-2" target="_blank">View on GitHub</a>
-                    <a href="${project.demo}" class="btn btn-custom" target="_blank">Live Demo</a>
+                <div class="row g-4">
+                    <div class="col-lg-7">
+                        <div id="projectModalCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                ${project.gallery.map((image, index) => `
+                                    <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                                        <img src="${image}" class="d-block w-100 project-modal-image" alt="${project.title} screenshot ${index + 1}">
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#projectModalCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#projectModalCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <span class="project-badge position-static d-inline-flex mb-3">${project.badge}</span>
+                        <p class="lead">${project.fullDescription}</p>
+                        <h6 class="fw-bold mt-4">Key Features</h6>
+                        <ul class="ps-3">
+                            ${project.features.map(feature => `<li class="mb-2">${feature}</li>`).join('')}
+                        </ul>
+                        <h6 class="fw-bold mt-4">Tech Stack</h6>
+                        <div class="project-tech mb-4">
+                            ${project.tech.map(tech => `<span class="badge">${tech}</span>`).join('')}
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="${project.demo}" class="btn btn-custom" target="_blank">
+                                <i class="fas fa-arrow-up-right-from-square me-1"></i>Live Demo
+                            </a>
+                            <a href="${project.github}" class="btn btn-outline-secondary" target="_blank">
+                                <i class="fab fa-github me-1"></i>GitHub
+                            </a>
+                        </div>
+                    </div>
                 </div>
             `;
 
             const modal = new bootstrap.Modal(document.getElementById('projectModal'));
             modal.show();
+        }
+
+        function renderProjectSkeletons() {
+            const projectsGrid = document.getElementById('projectsGrid');
+            projectsGrid.innerHTML = Array.from({ length: 6 }, () => `
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-skeleton"></div>
+                </div>
+            `).join('');
+        }
+
+        function attachProjectTilt() {
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('mousemove', event => {
+                    if (window.innerWidth < 992) return;
+                    const rect = card.getBoundingClientRect();
+                    const x = event.clientX - rect.left;
+                    const y = event.clientY - rect.top;
+                    const rotateX = ((y / rect.height) - 0.5) * -5;
+                    const rotateY = ((x / rect.width) - 0.5) * 5;
+                    card.style.transform = `translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
         }
 
         // Contact Form Submission
@@ -1269,24 +1965,228 @@
         }
 
         // Initialize
-        renderProjects();
+        renderProjectSkeletons();
+        setTimeout(() => renderProjects(activeProjectFilter), 450);
         // loadGitHubRepos(); // Uncomment to load GitHub repos
 
-        // Animate skill bars on scroll
-        const skillBars = document.querySelectorAll('.skill-progress');
-        const observerOptions = {
-            threshold: 0.5
-        };
+        // Premium skills section
+        const skillCategories = [
+            {
+                id: 'frontend',
+                title: 'Frontend',
+                icon: 'fa-laptop-code',
+                summary: 'Interfaces, state, animation, and responsive layouts.',
+                skills: [
+                    { name: 'React', level: 90, icon: 'fab fa-react', detail: 'Component architecture, hooks, state, and UI systems.', top: true },
+                    { name: 'JavaScript', level: 92, icon: 'fab fa-js', detail: 'Modern ES features, DOM, APIs, and interaction logic.', top: true },
+                    { name: 'Bootstrap', level: 88, icon: 'fab fa-bootstrap', detail: 'Fast responsive layouts and polished UI composition.' },
+                    { name: 'HTML/CSS', level: 95, icon: 'fab fa-html5', detail: 'Semantic markup, responsive CSS, animations, and accessibility.', top: true }
+                ]
+            },
+            {
+                id: 'backend',
+                title: 'Backend',
+                icon: 'fa-server',
+                summary: 'APIs, databases, authentication, and service logic.',
+                skills: [
+                    { name: 'Node.js', level: 88, icon: 'fab fa-node-js', detail: 'REST APIs, Express services, auth, and integrations.', top: true },
+                    { name: 'Python', level: 84, icon: 'fab fa-python', detail: 'Backend scripting, data handling, and web services.' },
+                    { name: 'Django', level: 82, icon: 'fas fa-leaf', detail: 'Django apps, models, views, auth, and admin workflows.' },
+                    { name: 'PostgreSQL', level: 80, icon: 'fas fa-database', detail: 'Schema design, queries, relational modeling, and indexing.' }
+                ]
+            },
+            {
+                id: 'mobile',
+                title: 'Mobile',
+                icon: 'fa-mobile-screen-button',
+                summary: 'Mobile-first experiences and cross-platform app flows.',
+                skills: [
+                    { name: 'Flutter', level: 78, icon: 'fas fa-mobile-screen', detail: 'Cross-platform UI, widgets, navigation, and Firebase flows.' },
+                    { name: 'React Native', level: 76, icon: 'fab fa-react', detail: 'Reusable mobile components and app state patterns.' },
+                    { name: 'Firebase', level: 82, icon: 'fas fa-fire', detail: 'Auth, realtime data, hosting, and cloud-backed prototypes.' },
+                    { name: 'Responsive UI', level: 90, icon: 'fas fa-tablet-screen-button', detail: 'Mobile-friendly layouts, touch targets, and adaptive grids.', top: true }
+                ]
+            },
+            {
+                id: 'tools',
+                title: 'Tools / Technologies',
+                icon: 'fa-screwdriver-wrench',
+                summary: 'Delivery, deployment, collaboration, and development workflow.',
+                skills: [
+                    { name: 'Git', level: 92, icon: 'fab fa-git-alt', detail: 'Branching, collaboration, pull requests, and version control.', top: true },
+                    { name: 'Docker', level: 75, icon: 'fab fa-docker', detail: 'Containerized services and repeatable local environments.' },
+                    { name: 'AWS', level: 70, icon: 'fab fa-aws', detail: 'Cloud deployment fundamentals, storage, and hosting.' },
+                    { name: 'REST APIs', level: 86, icon: 'fas fa-plug', detail: 'API contracts, integration, and request lifecycle design.' }
+                ]
+            }
+        ];
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.width = entry.target.style.width || '0%';
-                }
+        let activeSkillFilter = 'all';
+        const skillsSection = document.querySelector('.skills-section');
+        const skillsGrid = document.getElementById('skillsGrid');
+
+        function renderSkills() {
+            const visibleCategories = activeSkillFilter === 'all'
+                ? skillCategories
+                : skillCategories.filter(category => category.id === activeSkillFilter);
+
+            skillsGrid.innerHTML = visibleCategories.map((category, categoryIndex) => `
+                <div class="col-lg-3 col-md-6" data-skill-category="${category.id}">
+                    <article class="skill-category-card" data-delay="${categoryIndex * 120}">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="skill-category-icon">
+                                <i class="fas ${category.icon}"></i>
+                            </div>
+                            <div>
+                                <h3 class="h5 mb-1">${category.title}</h3>
+                                <p class="small text-muted mb-0">${category.summary}</p>
+                            </div>
+                        </div>
+
+                        <div class="skill-progress-view">
+                            <div class="skill-circle-grid mb-4">
+                                ${category.skills.slice(0, 2).map(skill => `
+                                    <div class="skill-circle ${skill.top ? 'top-skill' : ''}" data-bs-toggle="tooltip" data-bs-title="${skill.detail}">
+                                        <div class="skill-ring" data-level="${skill.level}">
+                                            <div class="skill-ring-content">
+                                                <i class="${skill.icon} d-block mb-1"></i>
+                                                <span class="skill-ring-number">0</span>%
+                                            </div>
+                                        </div>
+                                        <small class="fw-bold">${skill.name}</small>
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                            ${category.skills.map(skill => `
+                                <div class="skill-row" data-bs-toggle="tooltip" data-bs-title="${skill.detail}">
+                                    <div class="d-flex justify-content-between align-items-center gap-3 mb-2">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="skill-icon ${skill.top ? 'top-skill' : ''}"><i class="${skill.icon}"></i></span>
+                                            <span class="fw-semibold">${skill.name}</span>
+                                        </div>
+                                        <span class="fw-bold skill-level-label">0%</span>
+                                    </div>
+                                    <div class="skill-meter">
+                                        <div class="skill-meter-fill" data-level="${skill.level}"></div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <div class="skill-tag-cloud">
+                            ${category.skills.map(skill => `
+                                <span class="skill-tag ${skill.top ? 'top-skill' : ''}" data-bs-toggle="tooltip" data-bs-title="${skill.detail}">
+                                    <i class="${skill.icon}"></i>${skill.name}
+                                </span>
+                            `).join('')}
+                        </div>
+                    </article>
+                </div>
+            `).join('');
+
+            initializeSkillTooltips();
+            observeSkillCards();
+        }
+
+        function initializeSkillTooltips() {
+            document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(element => {
+                bootstrap.Tooltip.getOrCreateInstance(element);
             });
-        }, observerOptions);
+        }
 
-        skillBars.forEach(bar => observer.observe(bar));
+        function animateNumber(element, target, suffix = '') {
+            const duration = 950;
+            const start = performance.now();
+
+            function frame(now) {
+                const progress = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                element.textContent = `${Math.round(target * eased)}${suffix}`;
+                if (progress < 1) requestAnimationFrame(frame);
+            }
+
+            requestAnimationFrame(frame);
+        }
+
+        const skillCardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+
+                const card = entry.target;
+                const delay = Number(card.dataset.delay || 0);
+
+                setTimeout(() => {
+                    card.classList.add('is-visible');
+
+                    card.querySelectorAll('.skill-meter-fill').forEach(fill => {
+                        const level = Number(fill.dataset.level || 0);
+                        fill.style.width = `${level}%`;
+                        const label = fill.closest('.skill-row').querySelector('.skill-level-label');
+                        animateNumber(label, level, '%');
+                    });
+
+                    card.querySelectorAll('.skill-ring').forEach(ring => {
+                        const level = Number(ring.dataset.level || 0);
+                        ring.style.setProperty('--value', `${level * 3.6}deg`);
+                        animateNumber(ring.querySelector('.skill-ring-number'), level);
+                    });
+                }, delay);
+
+                skillCardObserver.unobserve(card);
+            });
+        }, {
+            threshold: 0.25,
+            rootMargin: '0px 0px -8% 0px'
+        });
+
+        function observeSkillCards() {
+            document.querySelectorAll('.skill-category-card').forEach(card => skillCardObserver.observe(card));
+            AOS.refreshHard();
+        }
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                animateNumber(entry.target, Number(entry.target.dataset.target || 0));
+                counterObserver.unobserve(entry.target);
+            });
+        }, { threshold: 0.7 });
+
+        document.querySelectorAll('.skill-counter').forEach(counter => counterObserver.observe(counter));
+
+        const savedSkillView = localStorage.getItem('skillView') || 'progress';
+        if (savedSkillView === 'tags') {
+            skillsSection.classList.add('tag-view');
+            document.querySelectorAll('.skill-toggle-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.skillView === 'tags'));
+        }
+
+        document.querySelectorAll('.skill-toggle-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.skill-toggle-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                const isTagView = button.dataset.skillView === 'tags';
+                skillsSection.classList.toggle('tag-view', isTagView);
+                localStorage.setItem('skillView', button.dataset.skillView);
+            });
+        });
+
+        document.querySelectorAll('.skill-filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.skill-filter-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                activeSkillFilter = button.dataset.skillFilter;
+                skillsGrid.style.opacity = '0';
+                skillsGrid.style.transform = 'translateY(12px)';
+                setTimeout(() => {
+                    renderSkills();
+                    skillsGrid.style.opacity = '1';
+                    skillsGrid.style.transform = 'translateY(0)';
+                }, 180);
+            });
+        });
+
+        renderSkills();
 
         // Experience timeline reveal, stagger, progress line, and details modal
         const timeline = document.getElementById('experienceTimeline');
