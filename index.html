@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yohannes Portfolio</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #f59e0b;
+            --dark-bg: #0f172a;
+            --dark-text: #f1f5f9;
+            --light-bg: #ffffff;
+            --light-text: #1e293b;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light-mode {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
+
+        .navbar {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s;
+        }
+
+        body.light-mode .navbar {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link {
+            color: var(--dark-text) !important;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        body.light-mode .nav-link {
+            color: var(--light-text) !important;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.light-mode .hero {
+            background: linear-gradient(135deg, var(--light-bg) 0%, #f8fafc 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%236366f1" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%238b5cf6" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero .typing {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .hero-image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-profile-img {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            border: 5px solid var(--glass-border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .hero-profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-custom {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+
+        .project-filter {
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            margin: 0 5px;
+            border-radius: 25px;
+            padding: 8px 20px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-control {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--dark-text);
+            transition: all 0.3s;
+        }
+
+        body.light-mode .form-control {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: var(--light-text);
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25);
+            border-color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .theme-toggle {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .social-links a {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero .typing {
+                font-size: 1.2rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .hero-profile-img {
+                max-width: 200px;
+                margin-top: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#hero">Yohannes</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <h1 data-aos="fade-up">Hi, I'm Yohannes</h1>
+                    <div class="typing" data-aos="fade-up" data-aos-delay="200" id="typingText"></div>
+                    <p class="lead mt-3" data-aos="fade-up" data-aos-delay="400">
+                        Passionate Full Stack Developer creating innovative solutions and beautiful user experiences.
+                    </p>
+                    <div class="mt-4" data-aos="fade-up" data-aos-delay="600">
+                        <a href="#projects" class="btn btn-custom me-3">View Projects</a>
+                        <a href="#contact" class="btn btn-custom">Contact Me</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center" data-aos="fade-left" data-aos-delay="300">
+                    <div class="hero-image-container">
+                        <img src="./images/jo.jpg" alt="Yohannes" class="img-fluid rounded-circle hero-profile-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">About Me</h2>
+            <div class="row">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <img src="./images/jo.jpg" alt="Yohannes" class="img-fluid rounded-circle mb-4">
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <h3>Full Stack Developer & Problem Solver</h3>
+                    <p>
+                        I'm a passionate full stack developer with over 5 years of experience creating web applications
+                        that solve real-world problems. I specialize in modern JavaScript frameworks, responsive design,
+                        and scalable backend solutions.
+                    </p>
+                    <p>
+                        When I'm not coding, you can find me exploring new technologies, contributing to open-source projects,
+                        or sharing knowledge with the developer community.
+                    </p>
+                    <div class="mt-4">
+                        <a href="#" class="btn btn-custom">Download CV</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Skills</h2>
+            <div class="row">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <h4>Frontend</h4>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>React</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>Vue.js</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>HTML/CSS</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <h4>Backend</h4>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>Node.js</span>
+                            <span>88%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>Python</span>
+                            <span>82%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 82%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>PostgreSQL</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <h4>Tools & Others</h4>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>Git</span>
+                            <span>92%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>Docker</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>AWS</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Projects</h2>
+            <div class="project-filter text-center" data-aos="fade-up" data-aos-delay="200">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="mobile">Mobile</button>
+                <button class="filter-btn" data-filter="backend">Backend</button>
+            </div>
+            <div class="row" id="projectsGrid">
+                <!-- Projects will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Experience & Education</h2>
+            <div class="row">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h4>Experience</h4>
+                    <div class="card p-4 mb-4">
+                        <h5>Senior Full Stack Developer</h5>
+                        <p class="text-muted">TechCorp Inc. | 2022 - Present</p>
+                        <p>Leading development of scalable web applications using React, Node.js, and cloud technologies.</p>
+                    </div>
+                    <div class="card p-4 mb-4">
+                        <h5>Full Stack Developer</h5>
+                        <p class="text-muted">StartupXYZ | 2020 - 2022</p>
+                        <p>Developed and maintained multiple client projects, focusing on performance optimization and user experience.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <h4>Education</h4>
+                    <div class="card p-4 mb-4">
+                        <h5>Master of Computer Science</h5>
+                        <p class="text-muted">University of Technology | 2018 - 2020</p>
+                        <p>Specialized in Software Engineering and Distributed Systems.</p>
+                    </div>
+                    <div class="card p-4 mb-4">
+                        <h5>Bachelor of Computer Science</h5>
+                        <p class="text-muted">State University | 2014 - 2018</p>
+                        <p>Foundation in programming, algorithms, and software development principles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Contact Me</h2>
+            <div class="row">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h4>Get In Touch</h4>
+                    <p>I'm always open to discussing new opportunities and interesting projects. Feel free to reach out!</p>
+                    <div class="social-links mt-4">
+                        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <form class="contact-form" id="contactForm">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" id="message" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-custom w-100">Send Message</button>
+                    </form>
+                    <div id="formMessage" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div class="modal fade" id="projectModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="projectModalTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="projectModalBody">
+                    <!-- Modal content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            body.classList.add('light-mode');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            if (body.classList.contains('light-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Typing Animation
+        const typingText = document.getElementById('typingText');
+        const roles = ['Full Stack Developer', 'Problem Solver', 'Tech Enthusiast'];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeWriter() {
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                setTimeout(() => isDeleting = true, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+            }
+
+            const typingSpeed = isDeleting ? 100 : 150;
+            setTimeout(typeWriter, typingSpeed);
+        }
+
+        typeWriter();
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active Navigation on Scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveNav() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - sectionHeight / 3) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+
+        // Projects Data
+        const projects = [
+            {
+                id: 1,
+                title: 'E-Commerce Platform',
+                category: 'web',
+                description: 'A full-featured e-commerce platform built with React and Node.js.',
+                tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+                image: 'https://via.placeholder.com/400x250/6366f1/ffffff?text=E-Commerce',
+                github: '#',
+                demo: '#'
+            },
+            {
+                id: 2,
+                title: 'Task Management App',
+                category: 'web',
+                description: 'A collaborative task management application with real-time updates.',
+                tech: ['Vue.js', 'Express', 'PostgreSQL', 'Socket.io'],
+                image: 'https://via.placeholder.com/400x250/8b5cf6/ffffff?text=Task+App',
+                github: '#',
+                demo: '#'
+            },
+            {
+                id: 3,
+                title: 'Mobile Fitness Tracker',
+                category: 'mobile',
+                description: 'A React Native app for tracking workouts and fitness goals.',
+                tech: ['React Native', 'Firebase', 'Redux'],
+                image: 'https://via.placeholder.com/400x250/f59e0b/ffffff?text=Fitness+App',
+                github: '#',
+                demo: '#'
+            },
+            {
+                id: 4,
+                title: 'API Gateway Service',
+                category: 'backend',
+                description: 'A scalable API gateway built with microservices architecture.',
+                tech: ['Node.js', 'Docker', 'Kubernetes', 'Redis'],
+                image: 'https://via.placeholder.com/400x250/10b981/ffffff?text=API+Gateway',
+                github: '#',
+                demo: '#'
+            },
+            {
+                id: 5,
+                title: 'Portfolio Website',
+                category: 'web',
+                description: 'A responsive portfolio website showcasing projects and skills.',
+                tech: ['HTML', 'CSS', 'JavaScript', 'Bootstrap'],
+                image: 'https://via.placeholder.com/400x250/ec4899/ffffff?text=Portfolio',
+                github: '#',
+                demo: '#'
+            },
+            {
+                id: 6,
+                title: 'Weather Dashboard',
+                category: 'web',
+                description: 'A weather dashboard with location-based forecasts and charts.',
+                tech: ['React', 'D3.js', 'OpenWeather API'],
+                image: 'https://via.placeholder.com/400x250/3b82f6/ffffff?text=Weather+App',
+                github: '#',
+                demo: '#'
+            }
+        ];
+
+        // Render Projects
+        function renderProjects(filter = 'all') {
+            const projectsGrid = document.getElementById('projectsGrid');
+            projectsGrid.innerHTML = '';
+
+            const filteredProjects = filter === 'all' ? projects : projects.filter(project => project.category === filter);
+
+            filteredProjects.forEach(project => {
+                const projectCard = `
+                    <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                        <div class="card h-100">
+                            <img src="${project.image}" class="card-img-top" alt="${project.title}">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">${project.title}</h5>
+                                <p class="card-text flex-grow-1">${project.description}</p>
+                                <div class="mb-3">
+                                    ${project.tech.map(tech => `<span class="badge bg-primary me-1">${tech}</span>`).join('')}
+                                </div>
+                                <div class="mt-auto">
+                                    <button class="btn btn-outline-primary me-2" onclick="openProjectModal(${project.id})">View Details</button>
+                                    <a href="${project.github}" class="btn btn-outline-secondary me-2" target="_blank">GitHub</a>
+                                    <a href="${project.demo}" class="btn btn-custom" target="_blank">Live Demo</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                projectsGrid.innerHTML += projectCard;
+            });
+        }
+
+        // Project Filtering
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderProjects(btn.dataset.filter);
+            });
+        });
+
+        // Open Project Modal
+        function openProjectModal(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            document.getElementById('projectModalTitle').textContent = project.title;
+            document.getElementById('projectModalBody').innerHTML = `
+                <img src="${project.image}" class="img-fluid mb-3" alt="${project.title}">
+                <p>${project.description}</p>
+                <h6>Technologies Used:</h6>
+                <div class="mb-3">
+                    ${project.tech.map(tech => `<span class="badge bg-primary me-2">${tech}</span>`).join('')}
+                </div>
+                <div>
+                    <a href="${project.github}" class="btn btn-outline-secondary me-2" target="_blank">View on GitHub</a>
+                    <a href="${project.demo}" class="btn btn-custom" target="_blank">Live Demo</a>
+                </div>
+            `;
+
+            const modal = new bootstrap.Modal(document.getElementById('projectModal'));
+            modal.show();
+        }
+
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Simulate AJAX submission
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    message: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('formMessage').innerHTML = '<div class="alert alert-success">Message sent successfully!</div>';
+                this.reset();
+            })
+            .catch(error => {
+                document.getElementById('formMessage').innerHTML = '<div class="alert alert-danger">Error sending message. Please try again.</div>';
+            });
+        });
+
+        // GitHub Repositories (Optional)
+        function loadGitHubRepos() {
+            // Replace 'yourusername' with actual GitHub username
+            fetch('https://api.github.com/users/yourusername/repos?sort=updated&per_page=6')
+                .then(response => response.json())
+                .then(data => {
+                    // Process and display repos
+                    console.log('GitHub repos loaded:', data);
+                })
+                .catch(error => console.error('Error loading GitHub repos:', error));
+        }
+
+        // Initialize
+        renderProjects();
+        // loadGitHubRepos(); // Uncomment to load GitHub repos
+
+        // Animate skill bars on scroll
+        const skillBars = document.querySelectorAll('.skill-progress');
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.style.width || '0%';
+                }
+            });
+        }, observerOptions);
+
+        skillBars.forEach(bar => observer.observe(bar));
+    </script>
+</body>
+</html>
