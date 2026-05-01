@@ -184,6 +184,202 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
+        .about-section {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 12% 18%, rgba(99, 102, 241, 0.16), transparent 30%),
+                radial-gradient(circle at 82% 76%, rgba(245, 158, 11, 0.12), transparent 30%);
+        }
+
+        body.light-mode .about-section {
+            background:
+                radial-gradient(circle at 12% 18%, rgba(99, 102, 241, 0.08), transparent 30%),
+                radial-gradient(circle at 82% 76%, rgba(245, 158, 11, 0.1), transparent 30%);
+        }
+
+        .about-shell {
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 22px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(18px);
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        body.light-mode .about-shell {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.78));
+            border-color: rgba(99, 102, 241, 0.13);
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+        }
+
+        .about-kicker {
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .about-title {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: 800;
+            line-height: 1.08;
+        }
+
+        .about-highlight {
+            color: var(--accent-color);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .about-highlight::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0.08em;
+            height: 0.28em;
+            background: rgba(245, 158, 11, 0.22);
+            z-index: -1;
+            transform-origin: left;
+            animation: aboutUnderline 2.4s ease-in-out infinite;
+        }
+
+        .about-typing {
+            min-height: 34px;
+            color: var(--accent-color);
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .about-typing::after {
+            content: '|';
+            margin-left: 4px;
+            animation: blinkCursor 0.8s steps(2, start) infinite;
+        }
+
+        .about-image-wrap {
+            position: relative;
+            max-width: 430px;
+            margin: 0 auto;
+            animation: aboutFloat 5.5s ease-in-out infinite;
+        }
+
+        .about-image-frame {
+            position: relative;
+            padding: 14px;
+            border-radius: 32px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.7), rgba(245, 158, 11, 0.65));
+            box-shadow: 0 26px 65px rgba(99, 102, 241, 0.24);
+            transition: transform 0.45s ease, box-shadow 0.45s ease;
+        }
+
+        .about-image-frame:hover {
+            transform: scale(1.025);
+            box-shadow: 0 34px 90px rgba(99, 102, 241, 0.34);
+        }
+
+        .about-profile-img {
+            width: 100%;
+            aspect-ratio: 1 / 1.08;
+            object-fit: cover;
+            border-radius: 24px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            display: block;
+        }
+
+        .about-floating-badge {
+            position: absolute;
+            right: -18px;
+            bottom: 28px;
+            max-width: 180px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            padding: 14px 16px;
+            background: rgba(15, 23, 42, 0.78);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
+        }
+
+        body.light-mode .about-floating-badge {
+            color: var(--light-text);
+            background: rgba(255, 255, 255, 0.86);
+        }
+
+        .about-stat,
+        .about-highlight-card {
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        body.light-mode .about-stat,
+        body.light-mode .about-highlight-card {
+            background: rgba(255, 255, 255, 0.78);
+            border-color: rgba(99, 102, 241, 0.12);
+        }
+
+        .about-stat {
+            padding: 18px;
+        }
+
+        .about-stat:hover,
+        .about-highlight-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(245, 158, 11, 0.5);
+            box-shadow: 0 18px 42px rgba(99, 102, 241, 0.18);
+        }
+
+        .about-stat-value {
+            font-size: 1.9rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .about-highlight-card {
+            height: 100%;
+            padding: 18px;
+        }
+
+        .about-highlight-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            color: #ffffff;
+            border-radius: 13px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.26);
+        }
+
+        .about-socials a {
+            width: 42px;
+            height: 42px;
+            display: inline-grid;
+            place-items: center;
+            color: var(--dark-text);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            transition: all 0.35s ease;
+        }
+
+        body.light-mode .about-socials a {
+            color: var(--light-text);
+            background: rgba(255, 255, 255, 0.78);
+            border-color: rgba(99, 102, 241, 0.14);
+        }
+
+        .about-socials a:hover {
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(99, 102, 241, 0.3);
+        }
+
         .skills-section {
             position: relative;
             overflow: hidden;
@@ -466,6 +662,30 @@
             50% {
                 opacity: 0.95;
                 transform: scale(1.04);
+            }
+        }
+
+        @keyframes aboutFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes aboutUnderline {
+            0%, 100% {
+                transform: scaleX(0.35);
+            }
+            50% {
+                transform: scaleX(1);
+            }
+        }
+
+        @keyframes blinkCursor {
+            50% {
+                opacity: 0;
             }
         }
 
@@ -1033,6 +1253,13 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
+            .about-image-wrap,
+            .about-highlight::after,
+            .about-typing::after,
+            .about-image-frame,
+            .about-stat,
+            .about-highlight-card,
+            .about-socials a,
             .skill-category-card,
             .skill-meter-fill,
             .skill-ring,
@@ -1076,6 +1303,17 @@
             .hero-profile-img {
                 max-width: 200px;
                 margin-top: 2rem;
+            }
+            .about-shell {
+                border-radius: 18px;
+            }
+            .about-floating-badge {
+                right: 12px;
+                bottom: 18px;
+                max-width: 160px;
+            }
+            .about-title {
+                white-space: normal;
             }
             .timeline {
                 padding-left: 10px;
@@ -1166,26 +1404,104 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="section">
+    <section id="about" class="section about-section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">About Me</h2>
-            <div class="row">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <img src="./images/jo.jpg" alt="Yohannes" class="img-fluid rounded-circle mb-4">
-                </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                    <h3>Full Stack Developer & Problem Solver</h3>
-                    <p>
-                        I'm a passionate full stack developer with over 5 years of experience creating web applications
-                        that solve real-world problems. I specialize in modern JavaScript frameworks, responsive design,
-                        and scalable backend solutions.
-                    </p>
-                    <p>
-                        When I'm not coding, you can find me exploring new technologies, contributing to open-source projects,
-                        or sharing knowledge with the developer community.
-                    </p>
-                    <div class="mt-4">
-                        <a href="./images/Yohannes_Garomsa_cv.pdf" class="btn btn-custom">Download CV</a>
+            <div class="about-shell p-4 p-lg-5">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-5 text-center" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="about-image-wrap" id="aboutImageWrap">
+                            <div class="about-image-frame">
+                                <img src="./images/jo.jpg" alt="Yohannes Garomsa" class="about-profile-img">
+                            </div>
+                            <div class="about-floating-badge text-start">
+                                <div class="fw-bold"><i class="fas fa-code me-2 text-warning"></i>Developer Mindset</div>
+                                <small>Clean UI, useful systems, and steady improvement.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7" data-aos="fade-left" data-aos-delay="180">
+                        <span class="about-kicker">About Me</span>
+                        <h2 class="about-title mt-2 mb-3">
+                            Hi, I'm <span class="about-highlight">Yohannes</span>, a Full Stack Developer.
+                        </h2>
+                        <div class="about-typing mb-3" id="aboutTypingText"></div>
+                        <p class="lead">
+                            Building solutions with code and creativity.
+                        </p>
+                        <p>
+                            I create modern web experiences that combine clean interfaces, reliable backend logic,
+                            and responsive design. My work focuses on turning real problems into practical products
+                            that feel simple, fast, and useful.
+                        </p>
+                        <p>
+                            I enjoy working across the stack with JavaScript, React, Node.js, Python, databases,
+                            and mobile-friendly interfaces. I care about teamwork, clear communication, and writing
+                            code that other developers can understand and improve.
+                        </p>
+                        <p>
+                            My goal is to grow into a developer who can lead meaningful products, contribute to
+                            high-quality engineering teams, and build software that helps people do better work.
+                        </p>
+
+                        <div class="row g-3 my-4">
+                            <div class="col-sm-4">
+                                <div class="about-stat">
+                                    <div class="about-stat-value"><span class="about-counter" data-target="2">0</span>+</div>
+                                    <small class="text-muted">Years Experience</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="about-stat">
+                                    <div class="about-stat-value"><span class="about-counter" data-target="10">0</span>+</div>
+                                    <small class="text-muted">Projects Completed</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="about-stat">
+                                    <div class="about-stat-value"><span class="about-counter" data-target="18">0</span>+</div>
+                                    <small class="text-muted">Technologies</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <div class="about-highlight-card">
+                                    <div class="about-highlight-icon mb-3"><i class="fas fa-users"></i></div>
+                                    <h6 class="fw-bold mb-1">Leadership</h6>
+                                    <small class="text-muted">Organizing work and keeping momentum clear.</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="about-highlight-card">
+                                    <div class="about-highlight-icon mb-3"><i class="fas fa-handshake"></i></div>
+                                    <h6 class="fw-bold mb-1">Teamwork</h6>
+                                    <small class="text-muted">Building with feedback, trust, and shared goals.</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="about-highlight-card">
+                                    <div class="about-highlight-icon mb-3"><i class="fas fa-lightbulb"></i></div>
+                                    <h6 class="fw-bold mb-1">Problem Solving</h6>
+                                    <small class="text-muted">Breaking complex needs into clean solutions.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-wrap align-items-center gap-3">
+                            <a href="./images/Yohannes_Garomsa_cv.pdf" class="btn btn-custom">
+                                <i class="fas fa-download me-2"></i>Download CV
+                            </a>
+                            <a href="#contact" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">
+                                <i class="fas fa-paper-plane me-2"></i>Contact Me
+                            </a>
+                            <div class="about-socials d-flex gap-2 ms-lg-2">
+                                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1552,6 +1868,79 @@
         }
 
         typeWriter();
+
+        // About section typing, counters, and subtle image parallax
+        const aboutTypingText = document.getElementById('aboutTypingText');
+        const aboutLines = [
+            'I build scalable web and mobile applications',
+            'I turn ideas into clean digital products',
+            'I design practical solutions with thoughtful code'
+        ];
+        let aboutLineIndex = 0;
+        let aboutCharIndex = 0;
+        let aboutDeleting = false;
+
+        function typeAboutLine() {
+            if (!aboutTypingText) return;
+
+            const currentLine = aboutLines[aboutLineIndex];
+            aboutTypingText.textContent = aboutDeleting
+                ? currentLine.substring(0, aboutCharIndex - 1)
+                : currentLine.substring(0, aboutCharIndex + 1);
+
+            aboutCharIndex += aboutDeleting ? -1 : 1;
+
+            if (!aboutDeleting && aboutCharIndex === currentLine.length) {
+                setTimeout(() => aboutDeleting = true, 1800);
+            } else if (aboutDeleting && aboutCharIndex === 0) {
+                aboutDeleting = false;
+                aboutLineIndex = (aboutLineIndex + 1) % aboutLines.length;
+            }
+
+            setTimeout(typeAboutLine, aboutDeleting ? 55 : 95);
+        }
+
+        typeAboutLine();
+
+        function animateAboutCounter(element) {
+            const target = Number(element.dataset.target || 0);
+            const duration = 1000;
+            const start = performance.now();
+
+            function frame(now) {
+                const progress = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                element.textContent = Math.round(target * eased);
+                if (progress < 1) requestAnimationFrame(frame);
+            }
+
+            requestAnimationFrame(frame);
+        }
+
+        const aboutCounterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                animateAboutCounter(entry.target);
+                aboutCounterObserver.unobserve(entry.target);
+            });
+        }, { threshold: 0.65 });
+
+        document.querySelectorAll('.about-counter').forEach(counter => aboutCounterObserver.observe(counter));
+
+        const aboutImageWrap = document.getElementById('aboutImageWrap');
+        if (aboutImageWrap) {
+            aboutImageWrap.addEventListener('mousemove', event => {
+                if (window.innerWidth < 992) return;
+                const rect = aboutImageWrap.getBoundingClientRect();
+                const x = ((event.clientX - rect.left) / rect.width - 0.5) * 10;
+                const y = ((event.clientY - rect.top) / rect.height - 0.5) * -10;
+                aboutImageWrap.style.transform = `translateY(-8px) rotateX(${y}deg) rotateY(${x}deg)`;
+            });
+
+            aboutImageWrap.addEventListener('mouseleave', () => {
+                aboutImageWrap.style.transform = '';
+            });
+        }
 
         // Smooth Scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
