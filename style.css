@@ -1384,6 +1384,36 @@
             color: #991b1b;
         }
 
+        .contact-trust-row {
+            color: var(--dark-text);
+        }
+
+        .contact-trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 13px;
+            border: 1px solid rgba(245, 158, 11, 0.34);
+            border-radius: 999px;
+            color: #f8fafc;
+            background: rgba(245, 158, 11, 0.14);
+            font-size: 0.9rem;
+            font-weight: 700;
+            box-shadow: 0 10px 26px rgba(15, 23, 42, 0.18);
+        }
+
+        .contact-trust-badge i {
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        body.light-mode .contact-trust-badge {
+            color: var(--light-text);
+            background: rgba(245, 158, 11, 0.16);
+            border-color: rgba(245, 158, 11, 0.42);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+        }
+
         .success-check {
             width: 28px;
             height: 28px;
