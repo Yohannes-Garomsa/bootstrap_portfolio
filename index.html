@@ -69,13 +69,21 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+            padding: 110px 0 70px;
+            background:
+                radial-gradient(circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%), rgba(99, 102, 241, 0.2), transparent 24%),
+                linear-gradient(125deg, #0f172a, #1e1b4b, #172554, #0f172a);
+            background-size: 100% 100%, 280% 280%;
             position: relative;
             overflow: hidden;
+            animation: heroGradient 14s ease-in-out infinite;
         }
 
         body.light-mode .hero {
-            background: linear-gradient(135deg, var(--light-bg) 0%, #f8fafc 100%);
+            background:
+                radial-gradient(circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%), rgba(99, 102, 241, 0.13), transparent 24%),
+                linear-gradient(125deg, #ffffff, #eef2ff, #f8fafc, #ecfeff);
+            background-size: 100% 100%, 280% 280%;
         }
 
         .hero::before {
@@ -89,40 +97,222 @@
             opacity: 0.1;
         }
 
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle, rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+                radial-gradient(circle, rgba(245, 158, 11, 0.16) 1px, transparent 1px);
+            background-position: 0 0, 24px 26px;
+            background-size: 54px 54px;
+            opacity: 0.2;
+            animation: heroParticles 18s linear infinite;
+            pointer-events: none;
+        }
+
         .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+            font-size: clamp(3rem, 8vw, 5.8rem);
+            font-weight: 800;
+            line-height: 0.98;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0;
         }
 
         .hero .typing {
-            font-size: 1.5rem;
+            min-height: 38px;
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
             color: var(--accent-color);
-            font-weight: 500;
+            font-weight: 700;
+        }
+
+        .hero .typing::after {
+            content: '|';
+            margin-left: 5px;
+            animation: blinkCursor 0.8s steps(2, start) infinite;
+        }
+
+        .hero-glass {
+            position: relative;
+            padding: clamp(24px, 4vw, 38px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 24px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(18px);
+            box-shadow: 0 28px 80px rgba(0, 0, 0, 0.24);
+        }
+
+        body.light-mode .hero-glass {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.68));
+            border-color: rgba(99, 102, 241, 0.14);
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-color);
+            font-size: 0.86rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-gradient-text {
+            display: inline-block;
+            color: transparent;
+            background: linear-gradient(90deg, #ffffff, var(--accent-color), #a78bfa, #ffffff);
+            background-size: 220% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: heroTextShine 4s ease-in-out infinite;
+        }
+
+        body.light-mode .hero-gradient-text {
+            background-image: linear-gradient(90deg, #1e293b, var(--primary-color), var(--accent-color), #1e293b);
+        }
+
+        .hero-name-highlight {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-name-highlight::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0.04em;
+            height: 0.18em;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            opacity: 0.55;
+            z-index: -1;
+            animation: heroUnderline 2.8s ease-in-out infinite;
+        }
+
+        .hero-tagline {
+            max-width: 620px;
+            font-size: 1.08rem;
+            line-height: 1.8;
+        }
+
+        .hero-socials a {
+            width: 44px;
+            height: 44px;
+            display: inline-grid;
+            place-items: center;
+            color: var(--dark-text);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            transition: all 0.35s ease;
+        }
+
+        body.light-mode .hero-socials a {
+            color: var(--light-text);
+            background: rgba(255, 255, 255, 0.78);
+            border-color: rgba(99, 102, 241, 0.14);
+        }
+
+        .hero-socials a:hover {
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 14px 30px rgba(99, 102, 241, 0.32);
         }
 
         .hero-image-container {
             position: relative;
             display: inline-block;
+            z-index: 2;
+            animation: heroFloat 5.5s ease-in-out infinite;
         }
 
         .hero-profile-img {
-            max-width: 300px;
+            max-width: 390px;
             width: 100%;
-            height: auto;
-            border: 5px solid var(--glass-border);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+            aspect-ratio: 1 / 1.08;
+            object-fit: cover;
+            border: 6px solid rgba(255, 255, 255, 0.16);
+            border-radius: 34px !important;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28), 0 0 60px rgba(99, 102, 241, 0.26);
+            transition: transform 0.45s ease, box-shadow 0.45s ease;
         }
 
         .hero-profile-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            transform: scale(1.035);
+            box-shadow: 0 38px 95px rgba(0, 0, 0, 0.34), 0 0 80px rgba(245, 158, 11, 0.24);
+        }
+
+        .hero-orbit {
+            position: absolute;
+            inset: -28px;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            border-radius: 42px;
+            animation: heroOrbit 10s linear infinite;
+            pointer-events: none;
+        }
+
+        .hero-floating-chip {
+            position: absolute;
+            left: -22px;
+            bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 14px;
+            color: var(--dark-text);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.78);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
+            font-weight: 700;
+        }
+
+        body.light-mode .hero-floating-chip {
+            color: var(--light-text);
+            background: rgba(255, 255, 255, 0.86);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            left: 50%;
+            bottom: 26px;
+            z-index: 3;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--dark-text);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transform: translateX(-50%);
+            opacity: 0.82;
+        }
+
+        body.light-mode .hero-scroll {
+            color: var(--light-text);
+        }
+
+        .hero-scroll i {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+            animation: heroScrollBounce 1.7s ease-in-out infinite;
         }
 
         .btn-custom {
@@ -139,6 +329,30 @@
         .btn-custom:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-hero-outline {
+            color: var(--dark-text);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 12px 26px;
+            font-weight: 700;
+            transition: all 0.35s ease;
+        }
+
+        body.light-mode .btn-hero-outline {
+            color: var(--light-text);
+            background: rgba(255, 255, 255, 0.76);
+            border-color: rgba(99, 102, 241, 0.16);
+        }
+
+        .btn-hero-outline:hover {
+            color: #ffffff;
+            border-color: transparent;
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            transform: translateY(-3px);
+            box-shadow: 0 16px 34px rgba(245, 158, 11, 0.24);
         }
 
         .section {
@@ -662,6 +876,65 @@
             50% {
                 opacity: 0.95;
                 transform: scale(1.04);
+            }
+        }
+
+        @keyframes heroGradient {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes heroParticles {
+            to {
+                background-position: 54px 54px, 78px 80px;
+            }
+        }
+
+        @keyframes heroTextShine {
+            0%, 100% {
+                background-position: 0% center;
+            }
+            50% {
+                background-position: 100% center;
+            }
+        }
+
+        @keyframes heroUnderline {
+            0%, 100% {
+                transform: scaleX(0.38);
+                transform-origin: left;
+            }
+            50% {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+        }
+
+        @keyframes heroFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-14px);
+            }
+        }
+
+        @keyframes heroOrbit {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes heroScrollBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(8px);
             }
         }
 
@@ -1253,6 +1526,14 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
+            .hero,
+            .hero::after,
+            .hero-gradient-text,
+            .hero-name-highlight::after,
+            .hero-image-container,
+            .hero-orbit,
+            .hero-scroll i,
+            .hero .typing::after,
             .about-image-wrap,
             .about-highlight::after,
             .about-typing::after,
@@ -1303,6 +1584,20 @@
             .hero-profile-img {
                 max-width: 200px;
                 margin-top: 2rem;
+            }
+            .hero {
+                min-height: auto;
+                padding: 105px 0 80px;
+            }
+            .hero-glass {
+                padding: 24px;
+            }
+            .hero-floating-chip {
+                left: 12px;
+                bottom: 18px;
+            }
+            .hero-scroll {
+                display: none;
             }
             .about-shell {
                 border-radius: 18px;
@@ -1382,25 +1677,55 @@
     <!-- Hero Section -->
     <section id="hero" class="hero">
         <div class="container">
-            <div class="row align-items-center">
+            <div class="row align-items-center g-5">
                 <div class="col-lg-6 hero-content">
-                    <h1 data-aos="fade-up">Hi, I'm Yohannes</h1>
-                    <div class="typing" data-aos="fade-up" data-aos-delay="200" id="typingText"></div>
-                    <p class="lead mt-3" data-aos="fade-up" data-aos-delay="400">
-                        Passionate Full Stack Developer creating innovative solutions and beautiful user experiences.
-                    </p>
-                    <div class="mt-4" data-aos="fade-up" data-aos-delay="600">
-                        <a href="#projects" class="btn btn-custom me-3">View Projects</a>
-                        <a href="#contact" class="btn btn-custom">Contact Me</a>
+                    <div class="hero-glass" data-aos="fade-up">
+                        <span class="hero-kicker" data-aos="fade-up" data-aos-delay="100">
+                            <i class="fas fa-bolt"></i> Available for meaningful projects
+                        </span>
+                        <h1 data-aos="fade-up" data-aos-delay="180">
+                            Hi, I'm <span class="hero-name-highlight hero-gradient-text">Yohannes</span>
+                        </h1>
+                        <div class="typing" data-aos="fade-up" data-aos-delay="280" id="typingText"></div>
+                        <p class="hero-tagline lead mt-3" data-aos="fade-up" data-aos-delay="380">
+                            I build polished web and mobile experiences that blend clean design,
+                            reliable engineering, and real-world problem solving.
+                        </p>
+                        <div class="d-flex flex-wrap align-items-center gap-3 mt-4" data-aos="fade-up" data-aos-delay="500">
+                            <a href="#projects" class="btn btn-custom">
+                                <i class="fas fa-layer-group me-2"></i>View Projects
+                            </a>
+                            <a href="#contact" class="btn btn-hero-outline">
+                                <i class="fas fa-paper-plane me-2"></i>Contact Me
+                            </a>
+                            <a href="./images/Yohannes_Garomsa_cv.pdf" class="btn btn-hero-outline">
+                                <i class="fas fa-download me-2"></i>Download CV
+                            </a>
+                        </div>
+                        <div class="hero-socials d-flex gap-2 mt-4" data-aos="fade-up" data-aos-delay="620">
+                            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6 text-center" data-aos="fade-left" data-aos-delay="300">
-                    <div class="hero-image-container">
-                        <img src="./images/jo.jpg" alt="Yohannes" class="img-fluid rounded-circle hero-profile-img">
+                <div class="col-lg-6 text-center" data-aos="zoom-in" data-aos-delay="360">
+                    <div class="hero-image-container" id="heroImageContainer">
+                        <div class="hero-orbit"></div>
+                        <img src="./images/jo.jpg" alt="Yohannes Garomsa" class="img-fluid hero-profile-img">
+                        <div class="hero-floating-chip">
+                            <i class="fas fa-code text-warning"></i>
+                            Full Stack Developer
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <a href="#about" class="hero-scroll" aria-label="Scroll to About section">
+            Scroll
+            <i class="fas fa-chevron-down"></i>
+        </a>
     </section>
 
     <!-- About Section -->
@@ -1840,7 +2165,7 @@
 
         // Typing Animation
         const typingText = document.getElementById('typingText');
-        const roles = ['Full Stack Developer', 'Problem Solver', 'Tech Enthusiast'];
+        const roles = ['Full Stack Developer', 'Problem Solver', 'Innovator', 'UI-Focused Engineer'];
         let roleIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
@@ -1868,6 +2193,34 @@
         }
 
         typeWriter();
+
+        // Hero spotlight and image parallax
+        const heroSection = document.getElementById('hero');
+        const heroImageContainer = document.getElementById('heroImageContainer');
+
+        if (heroSection) {
+            heroSection.addEventListener('mousemove', event => {
+                const rect = heroSection.getBoundingClientRect();
+                const x = ((event.clientX - rect.left) / rect.width) * 100;
+                const y = ((event.clientY - rect.top) / rect.height) * 100;
+                heroSection.style.setProperty('--spotlight-x', `${x}%`);
+                heroSection.style.setProperty('--spotlight-y', `${y}%`);
+            });
+        }
+
+        if (heroImageContainer) {
+            heroImageContainer.addEventListener('mousemove', event => {
+                if (window.innerWidth < 992) return;
+                const rect = heroImageContainer.getBoundingClientRect();
+                const x = ((event.clientX - rect.left) / rect.width - 0.5) * 9;
+                const y = ((event.clientY - rect.top) / rect.height - 0.5) * -9;
+                heroImageContainer.style.transform = `translateY(-10px) rotateX(${y}deg) rotateY(${x}deg)`;
+            });
+
+            heroImageContainer.addEventListener('mouseleave', () => {
+                heroImageContainer.style.transform = '';
+            });
+        }
 
         // About section typing, counters, and subtle image parallax
         const aboutTypingText = document.getElementById('aboutTypingText');
