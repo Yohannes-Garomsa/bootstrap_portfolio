@@ -32,7 +32,7 @@
 
         // Typing Animation
         const typingText = document.getElementById('typingText');
-        const roles = ['Full Stack Developer', 'Problem Solver', 'Innovator', 'UI-Focused Engineer'];
+        const roles = ['Full Stack Developer','Mobile App Developer','Problem Solver', 'Innovator', 'UI-Focused Engineer'];
         let roleIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
@@ -668,7 +668,7 @@
         // GitHub Repositories (Optional)
         function loadGitHubRepos() {
             // Replace 'yourusername' with actual GitHub username
-            fetch('https://api.github.com/users/yourusername/repos?sort=updated&per_page=6')
+            fetch('https://api.github.com/users/yohannes-garomsa/repos?sort=updated&per_page=6')
                 .then(response => response.json())
                 .then(data => {
                     // Process and display repos
