@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://unpkg.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' http://localhost:5000 https://api.github.com; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
     <title>Yohannes Portfolio</title>
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -395,7 +396,7 @@
                             </div>
                             <i class="fas fa-terminal text-warning fs-4"></i>
                         </div>
-                        <div class="timeline-duration"><i class="far fa-calendar-alt"></i> 2014 - 2018</div>
+                        <div class="timeline-duration"><i class="far fa-calendar-alt"></i> 2023 - 2027</div>
                         <p class="mb-0">
                             Built a foundation in programming, databases, algorithms, web development, and teamwork.
                         </p>
@@ -483,9 +484,9 @@
                         </div>
 
                         <div class="contact-socials d-flex gap-2 mb-4">
-                            <a href="https://github.com/yohannesgaromsa" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                            <a href="https://www.linkedin.com/in/yohannes-garomsa" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="https://twitter.com/yohannesgaromsa" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="https://github.com/yohannesgaromsa" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/yohannes-garomsa" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://twitter.com/yohannesgaromsa" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                         </div>
 
                         <div class="contact-map" aria-label="Map showing Addis Ababa, Ethiopia">
@@ -525,6 +526,7 @@
                                     <div class="field-error" id="subjectError"></div>
                                 </div>
                                 <div class="col-12">
+                                    <input type="text" id="website" name="website" class="d-none" tabindex="-1" autocomplete="off" aria-hidden="true">
                                     <div class="form-floating">
                                         <textarea class="form-control" id="message" name="message" placeholder="Your Message" required></textarea>
                                         <label for="message">Your Message</label>

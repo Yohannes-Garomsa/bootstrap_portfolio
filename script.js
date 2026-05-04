@@ -536,6 +536,10 @@
         const contactSubmit = document.getElementById('contactSubmit');
         const contactStatus = document.getElementById('formMessage');
         const contactDraftKey = 'portfolioContactDraft';
+        const contactApiUrl = window.PORTFOLIO_API_URL
+            || ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+                ? 'http://localhost:5000/api/contact'
+                : `${window.location.origin}/api/contact`);
         const contactFields = ['name', 'email', 'subject', 'message'];
 
         function sanitizeInput(value) {
@@ -590,6 +594,14 @@
             contactStatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
+        function applyBackendValidationErrors(errors = []) {
+            errors.forEach(({ field, message }) => {
+                if (contactFields.includes(field)) {
+                    setFieldError(field, message);
+                }
+            });
+        }
+
         function setContactLoading(isLoading) {
             contactSubmit.disabled = isLoading;
             contactSubmit.querySelector('.submit-label').classList.toggle('d-none', isLoading);
@@ -640,25 +652,34 @@
                 contactStatus.innerHTML = '';
 
                 try {
-                    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+                    const response = await fetch(contactApiUrl, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
                             ...data,
-                            source: 'portfolio-contact-form'
+                            website: ''
                         })
                     });
 
-                    if (!response.ok) throw new Error('Message request failed.');
+                    const result = await response.json();
 
-                    showContactStatus('success', 'Message sent successfully. Thank you for reaching out!');
+                    if (!response.ok) {
+                        applyBackendValidationErrors(result.errors);
+                        throw new Error(result.message || 'Message request failed.');
+                    }
+
+                    const successMessage = result.emailStatus === 'failed'
+                        ? 'Your message was saved, but email delivery had an issue. I can still review it from the dashboard.'
+                        : 'Message sent successfully. Thank you for reaching out!';
+
+                    showContactStatus('success', successMessage);
                     contactForm.reset();
                     localStorage.removeItem(contactDraftKey);
                     contactFields.forEach(field => setFieldError(field));
                 } catch (error) {
-                    showContactStatus('error', 'Something went wrong while sending. Please try again in a moment.');
+                    showContactStatus('error', error.message || 'Something went wrong while sending. Please try again in a moment.');
                 } finally {
                     setContactLoading(false);
                 }
